@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Roboto:wght@300&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(180deg, rgb(66, 4, 4) 20%, rgb(102, 2, 2) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 80px;
+  padding-top: 20px;
+  font-family: 'Roboto';
+  font-weight: bold;
+  color: white;
+  position: relative;
+}
+
+body .container {
+  flex-direction: column;
+}
+
+.container .stat {
+  font-size: 50px;
+  font-weight: bolder;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 50px;
+  justify-content: space-between;
+}
+
+.stat #wordScore {
+  display: flex;
+}
+
+.stat #WPM {
+  position: relative;
+  display: inline-block;
+}
+
+.stat #WPM span {
+  margin-left: 20px;
+  position: absolute;
+}
+
+.container .contentText {
+  height: 200px;
+  width: 1000px;
+  font-size: 30px;
+  color: rgb(160, 160, 160);
+  margin-top: 20px;
+  position: relative;
+}
+
+.contentText .cursor {
+  height: 30px;
+  width: 3px;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  top: 2px;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.contentText img{
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  left: -45px;
+  top: 3px;
+  cursor: pointer;
+  transition: transform 0.4s ease-in, scale 0.4s ease-in;
+}
+
+.contentText img:hover{
+  transform: scale(120%);
+}
+
+body .container-keyboard {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.container-keyboard .keyboard {
+  bottom: 0;
+  padding: 20px;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(30, 15px);
+  grid-template-rows: repeat(10, 15px);
+  grid-gap: 5px;
+}
+
+.keyboard #active, button:hover {
+  background-color: white;
+  color: rgb(27, 25, 25);
+  font-weight: bold;
+}
+ 
+.keyboard button {
+  border: 2px solid white;
+  color: white;
+  border-radius: 5px;
+  grid-column: span 2;
+  grid-row: span 2;
+  transition: all 0.5 ease;
+  background: transparent;
+  font-family: "Roboto";
+  /* cursor: pointer; */
+}
+.keyboard button:hover {
+  background-color: white;
+  color: rgb(27, 25, 25);
+  font-weight: bold;
+}
+
+.keyboard .backspace {
+  grid-column: span 4;
+  font-size: 10px;
+}
+
+.keyboard .tab {
+  grid-column: span 3;
+}
+
+.keyboard button[position="BackSlash"] {
+  grid-column: span 3;
+}
+
+.keyboard .CapsLock {
+  grid-column: span 4;
+  font-size: 10px;
+}
+
+.keyboard #Caps-Active {
+  width: 5px;
+  height: 5px;
+  background-color: rgb(0, 229, 61);
+  border-radius: 50%;
+  position: absolute;
+  transform: translate3d(62px, -18px, 0);
+  box-shadow: 0px 0px 5px white;
+}
+
+.keyboard .enter {
+  grid-column: span 4;
+}
+
+.keyboard .shift {
+  grid-column: span 5;
+}
+
+.keyboard button[position="Ctrl-Left"]{
+  grid-column: span 3;
+}
+
+.keyboard .Space {
+  grid-column: span 13;
+}
+
+.keyboard .arrowup {
+  grid-row: span 1;
+  font-size: 8px;
+}
+
+.keyboard .arrowdown {
+  grid-row-start: 10;
+  grid-column-end: 29;
+  font-size: 8px;
+}
+
+ /* WYKRES */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  transition: opacity 0.3s ease;
+}
+
+#result-window {
+  height: 400px;
+  min-width: 1000px;
+  background-color: rgb(82, 32, 32);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  position: absolute;
+  box-shadow: 0 0 25px black;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.score {
+  height: 300px;
+  min-width: 275px;
+  font-weight: bold;
+  padding: 0 50px 0 50px;
+}
+
+.title {
+  color: rgb(190, 190, 190);
+  font-size: 20px;
+}
+
+#title-WPM {
+  margin-left: 15px;
+  font-size: 55px;
+  margin-bottom: 20px;
+}
+
+#title-Time {
+  margin-left: 15px;
+  font-size: 55px;
+  margin-bottom: 20px;
+}
+
+#title-errors {
+  margin-left: 15px;
+  font-size: 55px;
+}
+
+.canvas {
+  min-width: 700px;
+  padding-right: 30px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+#myChart {
+  width: 100%;
+}
+
+#close-popup {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+#close-popup:hover {
+  transform: scale(130%);
+}
+/* WYKRES */
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    scale: 0%;
+  }
+  100% {
+    opacity: 1;
+    scale: 100%;
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease forwards;
+}
+
+.blur {
+  backdrop-filter: blur(5px);
+}
+
+@keyframes slideOut {
+  0% {
+    opacity: 1;
+    scale: 100%;
+  }
+  100% {
+    opacity: 0;
+    scale: 0%;
+  }
+}
+
+.slide-out {
+  animation: slideOut 0.3s ease forwards;
+}

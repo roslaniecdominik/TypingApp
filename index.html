@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Computer Keyboard</title>
+</head>
+<body>
+  <div class="container" id="container">
+    <div class="stat" id="stat">
+      <div id="WPM">WPM</div>
+      <div id="wordScore"></div>
+    </div>
+    <hr>
+    <div class="contentText" id="contentText">
+      <img id="refresh" src="refresh.png">
+      <div class="cursor"></div>
+    </div>
+  </div>
+  <div class="container-keyboard">
+    <div class="keyboard" id="keyboard">
+        <button class="`">`</button>
+        <button class="1">1</button>
+        <button class="2">2</button>
+        <button class="3">3</button>
+        <button class="4">4</button>
+        <button class="5">5</button>
+        <button class="6">6</button>
+        <button class="7">7</button>
+        <button class="8">8</button>
+        <button class="9">9</button>
+        <button class="0">0</button>
+        <button class="-">-</button>
+        <button class="=">=</button>
+        <button class="backspace">Backspace</button>
+        <button class="tab">Tab</button>
+        <button class="q">Q</button>
+        <button class="w">W</button>
+        <button class="e">E</button>
+        <button class="r">R</button>
+        <button class="t">T</button>
+        <button class="y">Y</button>
+        <button class="u">U</button>
+        <button class="i">I</button>
+        <button class="o">O</button>
+        <button class="p">P</button>
+        <button class="[">[</button>
+        <button class="]">]</button>
+        <button class="\" position="BackSlash">\</button>
+        <button class="CapsLock">CapsLock
+          <div class="CapsLock-Active"></div>
+        </button>
+        <button class="a">A</button>
+        <button class="s">S</button>
+        <button class="d">D</button>
+        <button class="f">F</button>
+        <button class="g">G</button>
+        <button class="h">H</button>
+        <button class="j">J</button>
+        <button class="k">K</button>
+        <button class="l">L</button>
+        <button class=";">;</button>
+        <button class="'">'</button>
+        <button class="enter">Enter</button>
+        <button class="shift">Shift</button>
+        <button class="z">Z</button>
+        <button class="x">X</button>
+        <button class="c">C</button>
+        <button class="v">V</button>
+        <button class="b">B</button>
+        <button class="n">N</button>
+        <button class="m">M</button>
+        <button class=",">,</button>
+        <button class=".">.</button>
+        <button class="/">/</button>
+        <button class="shift">Shift</button>
+        <button class="control" position="Ctrl-Left">Ctrl</button>
+        <button class="meta">Win</button>
+        <button class="alt">Alt</button>
+        <button class="Space"></button>
+        <button class="altgraph">Alt</button>
+        <button class="control">Ctrl</button>
+        <button class="arrowleft">Left</button>
+        <button class="arrowup">Up</button>
+        <button class="arrowdown">Down</button>
+        <button class="arrowright">Right</button>
+      </div>
+  </div>
+  <div id="overlay"></div>
+  <div id="result-window">
+    <div class="score">
+        <p class="title">WPM</p>
+        <p id="title-WPM"></p>
+        <p class="title">time</p>
+        <p id="title-Time"></p>
+        <p class="title">errors</p>
+        <p id="title-errors"></p>
+    </div>
+    <div class="canvas">
+        <canvas id="myChart"></canvas>
+    </div>
+    <img id="close-popup" src="x-icon.png">
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
