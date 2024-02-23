@@ -5,20 +5,18 @@ const refreshButton = document.getElementById("refresh");
 const wordScore = document.getElementById("wordScore");
 const overlay = document.getElementById("overlay");
 const resultWindow = document.getElementById("result-window");
-const xPopUp = document.getElementById("close-popup");
+const buttonToCloseChartPopUp = document.getElementById("close-ChartPopup");
 const titleTime = document.getElementById("title-Time");
 const titleWPM = document.getElementById("title-WPM");
 const titleErrors = document.getElementById("title-errors");
 const scoreTableWindow = document.getElementById("ScoreTable-window");
 const closeScoreTableButton = document.getElementById("close-ScoreTable");
+const scoreTableButton = document.getElementById("ScoreTable")
 
 const buttons = keyboard.querySelectorAll("button");
-
 const space = keyboard.querySelector(".Space");
 const CapsActive = keyboard.querySelector(".CapsLock-Active");
 const CapsLock = document.querySelector(".CapsLock");
-const scoreTableButton = document.querySelector(".ScoreTable")
-
 
 const allWord = document.createElement("div");
 const playerWord = document.createElement("p");
@@ -33,20 +31,12 @@ const Text = ["The quick brown fox jumps over the lazy dog",
 "The stars twinkle in the night sky, creating a sense of wonder and awe in the hearts of onlookers",
 "Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride"];
 
-
-let wordCount;
-
 let userText = "";
-let lastColoredIndex = -1;
-
 let startTime;
 let endTime;
 let timeDiff;
-
 let allWPM = [];
-let userWordCountList = [0]
 let userWordCount;
-
 let Xconstant;
 let Yconstant
 let Xstart = 0
@@ -54,7 +44,6 @@ let Ystart = 0
 let Xend;
 let Yend;
 let errorsCount = 0
-
 let myChart;
 
 function generateOriginalText(Text) {
@@ -91,7 +80,6 @@ function generateOriginalText(Text) {
   WPMscore.innerHTML = ""
   
   userText = ""
-  lastColoredIndex = -1;
   errorsCount = 0;
   timeDiff = 0;
   Xend = 0;
@@ -200,14 +188,14 @@ function chart (timeToFunc, WPMtoFunc) {
   });
 };
 
-function openPopUp() {
+function openChartPopUp() {
   overlay.style.display = "block";
   overlay.classList.add("blur")
   resultWindow.style.display = "flex";
   resultWindow.classList.add("slide-in");
 };
 
-function closePopUp() {
+function closeChartPopUp() {
   resultWindow.classList.remove("slide-in");
   resultWindow.classList.add("slide-out");
   
@@ -330,7 +318,7 @@ function WPMandWordCount() {
       console.log("koniec")
       userWordCount++;
       playerWord.innerText = userWordCount + "/";
-      openPopUp();
+      openChartPopUp();
 
       let timeToFunc = timeDiff;
       let WPMtoFunc = allWPM;
@@ -381,28 +369,20 @@ scoreTableButton.addEventListener("click", openScoreTable)
 
 closeScoreTableButton.addEventListener("click", closeScoreTable)
 
-xPopUp.addEventListener("click", function(){
-  closePopUp();
+buttonToCloseChartPopUp.addEventListener("click", function(){
+  closeChartPopUp();
   refreshingButton();
 })
 
 document.addEventListener("keydown", function(event) {
   const key = event.key.toLowerCase();
-
   keyboardActive(event, key)
 
   if (!unshowingButton.includes(key)) {
-    
     bigLetter(event, key)
-
     const originalChars = contentText.querySelectorAll("span");
-
     typingGame(originalChars, key)
-  
-
     WPMandWordCount()
-
-    
   };
 });
 

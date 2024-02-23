@@ -248,7 +248,7 @@ body .container-keyboard {
   width: 100%;
 }
 
-#close-popup, #close-ScoreTable{
+#close-ChartPopup, #close-ScoreTable{
   width: 20px;
   height: 20px;
   position: absolute;
@@ -258,7 +258,7 @@ body .container-keyboard {
   transition: 0.2s ease-in-out;
 }
 
-#close-popup:hover,
+#close-ChartPopup:hover,
 #close-ScoreTable:hover {
   transform: scale(130%);
 }
@@ -299,7 +299,7 @@ body .container-keyboard {
   animation: slideOut 0.3s ease forwards;
 }
 
-.ScoreTable {
+#ScoreTable {
   width: 200px;
   height: 30px;
   display: flex;
@@ -310,7 +310,7 @@ body .container-keyboard {
   transition: all 0.5s ease-in-out;
 }
 
-.ScoreTable:hover {
+#ScoreTable:hover {
   transform: scale(101%);
   color: white;
 }
