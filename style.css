@@ -13,7 +13,6 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 80px;
   padding-top: 20px;
   font-family: 'Roboto';
   font-weight: bold;
@@ -23,6 +22,7 @@ body {
 
 body .container {
   flex-direction: column;
+  min-height: 350px;
 }
 
 .container .stat {
@@ -120,8 +120,8 @@ body .container-keyboard {
   transition: all 0.5 ease;
   background: transparent;
   font-family: "Roboto";
-  /* cursor: pointer; */
 }
+
 .keyboard button:hover {
   background-color: white;
   color: rgb(27, 25, 25);
@@ -248,7 +248,7 @@ body .container-keyboard {
   width: 100%;
 }
 
-#close-popup {
+#close-popup, #close-ScoreTable{
   width: 20px;
   height: 20px;
   position: absolute;
@@ -258,9 +258,11 @@ body .container-keyboard {
   transition: 0.2s ease-in-out;
 }
 
-#close-popup:hover {
+#close-popup:hover,
+#close-ScoreTable:hover {
   transform: scale(130%);
 }
+
 /* WYKRES */
 
 @keyframes slideIn {
@@ -295,4 +297,124 @@ body .container-keyboard {
 
 .slide-out {
   animation: slideOut 0.3s ease forwards;
+}
+
+.ScoreTable {
+  width: 200px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  font-size: 22px;
+  color: rgb(160, 160, 160);
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.ScoreTable:hover {
+  transform: scale(101%);
+  color: white;
+}
+
+#ScoreTable-window {
+  display: none;
+  position: absolute;
+  height: 400px;
+  width: 900px;
+  border-radius: 20px;
+  background-color: rgb(82, 32, 32);
+  box-shadow: 0 0 25px black;
+}
+
+.ScoreTable-window-container {
+  width: 100%;
+  height: 100%;
+}
+
+.ScoreTable-title {
+  height: 60px;
+  font-size: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 3px;
+  margin-right: 40px;
+}
+
+.ScoreTable-window-container hr {
+  width: 86%;
+  margin-left: auto;
+  margin-right: 85px;
+}
+
+.table {
+  overflow-y: scroll;
+  width: 92%;
+  margin: auto;
+  margin-right: 50px;
+  margin-top: 5px;
+  height: 78%;
+}
+
+table {
+  font-size: 20px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  text-align: center;
+}
+
+
+thead tr {
+  position: sticky;
+  top: 0;
+  background-color: rgb(82, 32, 32);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+}
+
+@keyframes openScoreTableAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(20%) translateX(0%) scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%) translateX(0%) scale(1);
+  }
+}
+
+.openScoreTableAnimation {
+  animation: openScoreTableAnimation 0.3s ease forwards;
+}
+
+@keyframes closeScoreTableAnimation {
+  0% {
+    opacity: 1;
+    transform: translateY(0%) translateX(0%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20%) translateX(0%) scale(0);
+  }
+}
+
+.closeScoreTableAnimation {
+  animation: closeScoreTableAnimation 0.3s ease forwards;
 }

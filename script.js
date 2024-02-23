@@ -9,12 +9,16 @@ const xPopUp = document.getElementById("close-popup");
 const titleTime = document.getElementById("title-Time");
 const titleWPM = document.getElementById("title-WPM");
 const titleErrors = document.getElementById("title-errors");
+const scoreTableWindow = document.getElementById("ScoreTable-window");
+const closeScoreTableButton = document.getElementById("close-ScoreTable");
 
 const buttons = keyboard.querySelectorAll("button");
 
 const space = keyboard.querySelector(".Space");
 const CapsActive = keyboard.querySelector(".CapsLock-Active");
 const CapsLock = document.querySelector(".CapsLock");
+const scoreTableButton = document.querySelector(".ScoreTable")
+
 
 const allWord = document.createElement("div");
 const playerWord = document.createElement("p");
@@ -22,18 +26,13 @@ const WPMscore = document.createElement("span");
 
 const unshowingButton = ["f5", "escape", "audiovolumemute", "audiovolumeup", "audiovolumedown", "tab", "capslock","shift", "control", "alt", "altgraph", "meta", "enter", "arrowup", "arrowright", "arrowdown", "arrowleft"];
 
-// const Text = ["The quick brown fox jumps over the lazy dog", 
-// "The cat purrs contentedly as it curls up on the windowsill, basking in the warmth of the afternoon sun",
-// "With a gentle breeze blowing through the trees, the park is the perfect spot for a leisurely picnic",
-// "Jack eagerly opens the envelope to find an invitation to his best friend's birthday party",
-// "The stars twinkle in the night sky, creating a sense of wonder and awe in the hearts of onlookers",
-// "Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride"];
-const Text = ["The quick brown fox", 
-"The cat purrs contentedly as it curls up",
-"With a gentle breeze blowing",
-"Jack eagerly opens the envelope to find",
-"The stars twinkle in the night sky",
-"Emily carefully"];
+const Text = ["The quick brown fox jumps over the lazy dog", 
+"The cat purrs contentedly as it curls up on the windowsill, basking in the warmth of the afternoon sun",
+"With a gentle breeze blowing through the trees, the park is the perfect spot for a leisurely picnic",
+"Jack eagerly opens the envelope to find an invitation to his best friend's birthday party",
+"The stars twinkle in the night sky, creating a sense of wonder and awe in the hearts of onlookers",
+"Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride"];
+
 
 let wordCount;
 
@@ -48,7 +47,6 @@ let allWPM = [];
 let userWordCountList = [0]
 let userWordCount;
 
-
 let Xconstant;
 let Yconstant
 let Xstart = 0
@@ -58,16 +56,10 @@ let Yend;
 let errorsCount = 0
 
 let myChart;
+
 function generateOriginalText(Text) {
   const textIndex = Math.floor(Math.random() * Text.length);
   sourceText = Text[textIndex];
-
-  // sourceText.split("").forEach(char => {
-  //   const correctLetter = document.createElement("span");
-  //   char === " " ? correctLetter.textContent = " " : correctLetter.textContent = char
-  //   contentText.appendChild(correctLetter);
-  // });
-
 
   let indexSpan = 0;
 
@@ -83,12 +75,10 @@ function generateOriginalText(Text) {
   }, 8);
 
   setTimeout(() => {
-    //Wsp startowe kursora
+    //starting cursor coordinates
     Xconstant = contentText.querySelector("span").getBoundingClientRect().left
     Yconstant = contentText.querySelector("span").getBoundingClientRect().top
 }, 10); //
-  
-
 
   playerWord.innerHTML = ""
   userWordCount = 0;
@@ -218,7 +208,6 @@ function openPopUp() {
 };
 
 function closePopUp() {
-
   resultWindow.classList.remove("slide-in");
   resultWindow.classList.add("slide-out");
   
@@ -229,7 +218,6 @@ function closePopUp() {
       resultWindow.style.display = "none";
       resultWindow.classList.remove("slide-out");
     }, 150)
-    
   }, 150);
 }
 
@@ -362,9 +350,36 @@ function refreshingButton() {
   generateOriginalText(Text)
 }
 
+function openScoreTable() {
+  overlay.style.display = "block";
+  overlay.classList.add("blur");
+  scoreTableWindow.style.display = "block";
+  scoreTableWindow.classList.add("openScoreTableAnimation");
+}
+
+function closeScoreTable() {
+  scoreTableWindow.classList.remove("openScoreTableAnimation");
+  scoreTableWindow.classList.add("closeScoreTableAnimation");
+
+  setTimeout(() => {
+    overlay.classList.remove("blur");
+    setTimeout(() => {
+      overlay.style.display = "none";
+      scoreTableWindow.style.display = "none";
+      scoreTableWindow.classList.remove("closeScoreTableAnimation");
+    }, 150)
+  }, 150);
+
+  
+}
+
 generateOriginalText(Text);
 
 refreshButton.addEventListener("click", refreshingButton)
+
+scoreTableButton.addEventListener("click", openScoreTable)
+
+closeScoreTableButton.addEventListener("click", closeScoreTable)
 
 xPopUp.addEventListener("click", function(){
   closePopUp();
