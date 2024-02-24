@@ -11,7 +11,14 @@ const titleWPM = document.getElementById("title-WPM");
 const titleErrors = document.getElementById("title-errors");
 const scoreTableWindow = document.getElementById("ScoreTable-window");
 const closeScoreTableButton = document.getElementById("close-ScoreTable");
-const scoreTableButton = document.getElementById("ScoreTable")
+const scoreTableButton = document.getElementById("ScoreTable");
+const nickNameInput = document.getElementById("nickNameInput");
+
+const saveScoreButton = document.getElementById("save-score");
+const sendScoreBox = document.getElementById("send-score");
+const sendScoreButton = document.getElementById("send-button");
+const sendInfo = document.getElementById("send-info");
+
 
 const buttons = keyboard.querySelectorAll("button");
 const space = keyboard.querySelector(".Space");
@@ -24,13 +31,13 @@ const WPMscore = document.createElement("span");
 
 const unshowingButton = ["f5", "escape", "audiovolumemute", "audiovolumeup", "audiovolumedown", "tab", "capslock","shift", "control", "alt", "altgraph", "meta", "enter", "arrowup", "arrowright", "arrowdown", "arrowleft"];
 
-const Text = ["The quick brown fox jumps over the lazy dog", 
-"The cat purrs contentedly as it curls up on the windowsill, basking in the warmth of the afternoon sun",
-"With a gentle breeze blowing through the trees, the park is the perfect spot for a leisurely picnic",
-"Jack eagerly opens the envelope to find an invitation to his best friend's birthday party",
-"The stars twinkle in the night sky, creating a sense of wonder and awe in the hearts of onlookers",
-"Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride"];
-
+// const Text = ["The quick brown fox jumps over the lazy dog", 
+// "The cat purrs contentedly as it curls up on the windowsill, basking in the warmth of the afternoon sun",
+// "With a gentle breeze blowing through the trees, the park is the perfect spot for a leisurely picnic",
+// "Jack eagerly opens the envelope to find an invitation to his best friend's birthday party",
+// "The stars twinkle in the night sky, creating a sense of wonder and awe in the hearts of onlookers",
+// "Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride"];
+const Text = ["qw", "er"]
 let userText = "";
 let startTime;
 let endTime;
@@ -86,6 +93,13 @@ function generateOriginalText(Text) {
   Yend = 0;
   allWPM = [];
   cursorElement(Xstart, Ystart, Xend, Yend)
+};
+
+function openChartPopUp() {
+  overlay.style.display = "block";
+  overlay.classList.add("blur")
+  resultWindow.style.display = "flex";
+  resultWindow.classList.add("slide-in");
 };
 
 function chart (timeToFunc, WPMtoFunc) {
@@ -188,12 +202,49 @@ function chart (timeToFunc, WPMtoFunc) {
   });
 };
 
-function openChartPopUp() {
-  overlay.style.display = "block";
-  overlay.classList.add("blur")
-  resultWindow.style.display = "flex";
-  resultWindow.classList.add("slide-in");
-};
+function saveScore() {
+  if (!sendScoreBox.style.display || sendScoreBox.style.display === "none") {
+    sendScoreBox.style.display = "flex";
+    setTimeout(() => {
+      sendScoreBox.style.top = "560px"
+    }, 10)
+  } else {
+    sendScoreBox.style.top = "510px"
+    setTimeout(() => {
+      sendScoreBox.style.display = "none"
+    }, 150)
+  }
+}
+
+function sendScore() {
+  if (nickNameInput.value === "") {
+    sendScoreBox.classList.add("shake");
+    setTimeout(() => {
+      sendScoreBox.classList.remove("shake");
+    }, 500);
+  } else {
+    sendScoreBox.style.top = "510px"
+    setTimeout(() => {
+      sendScoreBox.style.display = "none";
+      sendInfo.style.display = "flex";
+      nickNameInput.value = ""
+    }, 200)
+  
+    setTimeout(() => {
+      sendInfo.style.top = "560px"
+    }, 500)
+  
+    setTimeout(() => {
+      sendInfo.style.top = "510px"
+      setTimeout(() => {
+        sendInfo.style.display = "none";
+      }, 200)
+    }, 5000)
+  }
+}
+
+saveScoreButton.addEventListener("click", saveScore)
+sendScoreButton.addEventListener("click", sendScore)
 
 function closeChartPopUp() {
   resultWindow.classList.remove("slide-in");
@@ -207,7 +258,7 @@ function closeChartPopUp() {
       resultWindow.classList.remove("slide-out");
     }, 150)
   }, 150);
-}
+};
 
 function keyboardActive(event, key) {
   buttons.forEach(button => {
@@ -220,7 +271,7 @@ function keyboardActive(event, key) {
       button.id = "active";
     };
   });
-}
+};
 
 function bigLetter(event, key) {
   const letterToAdd = event.getModifierState("CapsLock") ? key.toUpperCase()
@@ -229,7 +280,7 @@ function bigLetter(event, key) {
   if (key != "backspace") {
     userText += letterToAdd;
   }
-}
+};
 
 function cursorElement(Xstart, Ystart, Xend, Yend) {
   if (userText === "") {
@@ -252,7 +303,7 @@ function cursorElement(Xstart, Ystart, Xend, Yend) {
     }
   );
 
-}
+};
 
 function typingGame(originalChars, key) {
   index = userText.length - 1;
@@ -293,7 +344,7 @@ function typingGame(originalChars, key) {
     originalChars[index].style.color = "red";
     errorsCount++;
   }
-}
+};
 
 function WPMandWordCount() {
   if (userText == sourceText.charAt(0)) {
@@ -329,21 +380,21 @@ function WPMandWordCount() {
       titleErrors.innerText = errorsCount;
     }
   }
-}
+};
 
 function refreshingButton() {
   contentText.querySelectorAll("span").forEach(element => {
     element.remove();
   });
   generateOriginalText(Text)
-}
+};
 
 function openScoreTable() {
   overlay.style.display = "block";
   overlay.classList.add("blur");
   scoreTableWindow.style.display = "block";
   scoreTableWindow.classList.add("openScoreTableAnimation");
-}
+};
 
 function closeScoreTable() {
   scoreTableWindow.classList.remove("openScoreTableAnimation");
@@ -359,7 +410,7 @@ function closeScoreTable() {
   }, 150);
 
   
-}
+};
 
 generateOriginalText(Text);
 
@@ -370,6 +421,10 @@ scoreTableButton.addEventListener("click", openScoreTable)
 closeScoreTableButton.addEventListener("click", closeScoreTable)
 
 buttonToCloseChartPopUp.addEventListener("click", function(){
+  sendScoreBox.style.display = "none";
+  sendScoreBox.style.top = "510px";
+  sendInfo.style.display = "none";
+  sendInfo.style.top = "510px";
   closeChartPopUp();
   refreshingButton();
 })

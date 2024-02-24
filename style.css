@@ -196,18 +196,22 @@ body .container-keyboard {
 
 #result-window {
   height: 400px;
-  min-width: 1000px;
+  max-width: 1000px;
   background-color: rgb(82, 32, 32);
   display: none;
-  align-items: center;
+  align-content: center;
   justify-content: center;
   border-radius: 20px;
   position: absolute;
   box-shadow: 0 0 25px black;
   transition: opacity 0.3s ease, transform 0.3s ease;
+  flex-wrap: wrap;
+  z-index: 2;
 }
 
+
 .score {
+  margin-top: 30px;
   height: 300px;
   min-width: 275px;
   font-weight: bold;
@@ -237,6 +241,7 @@ body .container-keyboard {
 }
 
 .canvas {
+  margin-top: 30px;
   min-width: 700px;
   padding-right: 30px;
   height: 300px;
@@ -297,6 +302,91 @@ body .container-keyboard {
 
 .slide-out {
   animation: slideOut 0.3s ease forwards;
+}
+
+#save-score {
+  position: relative;
+  margin-top: 10px;
+  color: rgb(160, 160, 160);
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+}
+
+#save-score:hover {
+  color: white;
+}
+
+#send-score {
+  display: none;
+  position: absolute;
+  top: 510px;
+  left: calc(50% - 150px);
+  width: 300px;
+  height: 50px;
+  background-color: rgb(82, 32, 32);
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  z-index: 1;
+  box-shadow: 0 0 25px black;
+  transition: top 0.3s ease-in-out;
+}
+
+#send-score input {
+  background-color: inherit;
+  width: 250px;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 22px;
+  color: white;
+}
+
+#send-score img {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  10%, 20% { transform: translateX(-8px); }
+  30%, 50%, 70%, 90% { transform: translateX(8px); }
+  40%, 60%, 80% { transform: translateX(-8px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.5s;
+}
+
+#send-info {
+  display: none;
+  position: absolute;
+  top: 510px;
+  left: calc(50% - 150px);
+  width: 300px;
+  height: 50px;
+  background-color: rgb(82, 32, 32);
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  color: rgb(37, 174, 136);
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  gap: 10px;
+  letter-spacing: 3px;
+  z-index: 1;
+  box-shadow: 0 0 25px black;
+  transition: top 0.2s ease-in;
+}
+
+#send-info img {
+  width: 30px;
+  height: 30px;
 }
 
 #ScoreTable {
