@@ -1,16 +1,16 @@
 nickname,words,time,errors,WPM
 ShadowStorm,16,10.1,1,95
-LightningStriker,22	18.2,0,73
+LightningStriker,22,18.2,0,73
 MysticPhoenix,28,17.9,0,94
 SilverLionheart,25,16.1,1,93
 CrimsonDragon,23,20.4,2,68
-EmeraldSword,26	22.6,1,69
+EmeraldSword,26,22.6,1,69
 GoldenFalcon,31,17.0,0,109
 ArcticWolf,19,19.1,1,60
 CelestialDancer,17,15.9,0,64
-PhantomRider,25	21.9,1,68
+PhantomRider,25,21.9,1,68
 OceanSiren,19,15.5,1,74
 SolarFlare,26,20.0,0,78
-LunarWhisper,21	22.1,1,57
+LunarWhisper,21,22.1,1,57
 Frostbite,22,18.9,0,70
 BlazeEagle,28,13.7,1,123
