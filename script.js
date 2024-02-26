@@ -37,7 +37,7 @@ const Text = ["The quick brown fox jumps over the lazy dog",
 "Jack eagerly opens the envelope to find an invitation to his best friend's birthday party",
 "The stars twinkle in the night sky, creating a sense of wonder and awe in the hearts of onlookers",
 "Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride"];
-// const Text = ["qw", "er"]
+
 let userText = "";
 let startTime;
 let endTime;
@@ -52,6 +52,7 @@ let Xend;
 let Yend;
 let errorsCount = 0
 let myChart;
+let playerDataScoreTable;
 
 function generateOriginalText(Text) {
   const textIndex = Math.floor(Math.random() * Text.length);
@@ -223,6 +224,9 @@ function sendScore() {
       sendScoreBox.classList.remove("shake");
     }, 500);
   } else {
+    playerDataScoreTable = [nickNameInput.value, sourceText.length, titleTime.innerText, titleErrors.innerText, titleWPM.innerText];
+    dataScoreTable();
+    
     sendScoreBox.style.top = "510px"
     setTimeout(() => {
       sendScoreBox.style.display = "none";
@@ -258,6 +262,61 @@ function closeChartPopUp() {
       resultWindow.classList.remove("slide-out");
     }, 150)
   }, 150);
+};
+
+function dataScoreTable() {
+  let rows;
+  const thead = document.querySelector("thead");
+  const tbody = document.querySelector("tbody");
+
+
+  fetch('ScoreTable.txt')
+  .then(response => response.text())
+  .then(text => {
+      rows = text.split('\n');
+      rows.shift()
+      rows = rows.map(str => str.replace(/\r/g, ''))
+      rows.sort((a, b) => {
+          const numA = parseFloat(a.split(',').pop());
+          const numB = parseFloat(b.split(',').pop());
+          return numB - numA;
+      });
+      
+      const dataToScoreTable = rows.map(element => element.split(','));
+
+      if (playerDataScoreTable) {
+        // thead.removeChild(thead.lastElementChild)
+        if (thead.lastElementChild) {
+          thead.removeChild(thead.lastElementChild)
+        }
+        const newRowHTML = `
+        <tr>
+            <th>`+0+`</th>
+            <th>`+playerDataScoreTable[0]+`</th>
+            <th>`+playerDataScoreTable[1]+`</th>
+            <th>`+playerDataScoreTable[2]+`</th>
+            <th>`+playerDataScoreTable[3]+`</th>
+            <th>`+playerDataScoreTable[4]+`</th>
+        </tr>
+        `;
+        thead.insertAdjacentHTML('beforeend', newRowHTML)
+      } else {
+        for (let i = 0; i < dataToScoreTable.length; i++) {
+          
+          const newRowHTML = `
+              <tr>
+                  <td>`+(i+1)+`</td>
+                  <td>`+dataToScoreTable[i][0]+`</td>
+                  <td>`+dataToScoreTable[i][1]+`</td>
+                  <td>`+dataToScoreTable[i][2]+"s"+`</td>
+                  <td>`+dataToScoreTable[i][3]+`</td>
+                  <td>`+dataToScoreTable[i][4]+`</td>
+              </tr>
+          `;
+          tbody.insertAdjacentHTML('beforeend', newRowHTML)
+        }
+      }
+  });
 };
 
 function keyboardActive(event, key) {
@@ -366,7 +425,6 @@ function WPMandWordCount() {
 
 
     if (userText === sourceText) {
-      console.log("koniec")
       userWordCount++;
       playerWord.innerText = userWordCount + "/";
       openChartPopUp();
@@ -415,6 +473,8 @@ function closeScoreTable() {
 generateOriginalText(Text);
 
 refreshButton.addEventListener("click", refreshingButton)
+
+dataScoreTable()
 
 scoreTableButton.addEventListener("click", openScoreTable)
 
