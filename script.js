@@ -31,12 +31,14 @@ const WPMscore = document.createElement("span");
 
 const unshowingButton = ["f5", "escape", "audiovolumemute", "audiovolumeup", "audiovolumedown", "tab", "capslock","shift", "control", "alt", "altgraph", "meta", "enter", "arrowup", "arrowright", "arrowdown", "arrowleft"];
 
-const Text = ["The quick brown fox jumps over the lazy dog", 
-"The cat purrs contentedly as it curls up on the windowsill, basking in the warmth of the afternoon sun",
-"With a gentle breeze blowing through the trees, the park is the perfect spot for a leisurely picnic",
-"Jack eagerly opens the envelope to find an invitation to his best friend's birthday party",
-"The stars twinkle in the night sky, creating a sense of wonder and awe in the hearts of onlookers",
-"Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride"];
+// const Text = ["The quick brown fox jumps over the lazy dog", 
+// "The cat purrs contentedly as it curls up on the windowsill, basking in the warmth of the afternoon sun",
+// "With a gentle breeze blowing through the trees, the park is the perfect spot for a leisurely picnic",
+// "Jack eagerly opens the envelope to find an invitation to his best friend's birthday party",
+// "The stars twinkle in the night sky, creating a sense of wonder and awe in the hearts of onlookers",
+// "Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride"];
+
+const Text = ["The quick"]
 
 let userText = "";
 let startTime;
@@ -53,6 +55,7 @@ let Yend;
 let errorsCount = 0
 let myChart;
 let playerDataScoreTable;
+let newRowHTML;
 
 function generateOriginalText(Text) {
   const textIndex = Math.floor(Math.random() * Text.length);
@@ -207,10 +210,10 @@ function saveScore() {
   if (!sendScoreBox.style.display || sendScoreBox.style.display === "none") {
     sendScoreBox.style.display = "flex";
     setTimeout(() => {
-      sendScoreBox.style.top = "560px"
+      sendScoreBox.style.top = "calc(50% + 200px)"
     }, 10)
   } else {
-    sendScoreBox.style.top = "510px"
+    sendScoreBox.style.top = "calc(50% + 150px)"
     setTimeout(() => {
       sendScoreBox.style.display = "none"
     }, 150)
@@ -227,7 +230,7 @@ function sendScore() {
     playerDataScoreTable = [nickNameInput.value, sourceText.length, titleTime.innerText, titleErrors.innerText, titleWPM.innerText];
     dataScoreTable();
     
-    sendScoreBox.style.top = "510px"
+    sendScoreBox.style.top = "calc(50% + 150px)"
     setTimeout(() => {
       sendScoreBox.style.display = "none";
       sendInfo.style.display = "flex";
@@ -235,20 +238,17 @@ function sendScore() {
     }, 200)
   
     setTimeout(() => {
-      sendInfo.style.top = "560px"
+      sendInfo.style.top = "calc(50% + 200px)"
     }, 500)
   
     setTimeout(() => {
-      sendInfo.style.top = "510px"
+      sendInfo.style.top = "calc(50% + 150px)"
       setTimeout(() => {
         sendInfo.style.display = "none";
       }, 200)
     }, 5000)
   }
 }
-
-saveScoreButton.addEventListener("click", saveScore)
-sendScoreButton.addEventListener("click", sendScore)
 
 function closeChartPopUp() {
   resultWindow.classList.remove("slide-in");
@@ -285,11 +285,12 @@ function dataScoreTable() {
       const dataToScoreTable = rows.map(element => element.split(','));
 
       if (playerDataScoreTable) {
-        // thead.removeChild(thead.lastElementChild)
-        if (thead.lastElementChild) {
+        
+        if (newRowHTML) {
+          console.log(thead.lastElementChild)
           thead.removeChild(thead.lastElementChild)
         }
-        const newRowHTML = `
+        newRowHTML = `
         <tr>
             <th>`+0+`</th>
             <th>`+playerDataScoreTable[0]+`</th>
@@ -299,6 +300,7 @@ function dataScoreTable() {
             <th>`+playerDataScoreTable[4]+`</th>
         </tr>
         `;
+        thead.style.background = "linear-gradient(180deg, rgba(102, 40, 40, 1) 50%, rgba(82, 32, 32, 1) 50%)"
         thead.insertAdjacentHTML('beforeend', newRowHTML)
       } else {
         for (let i = 0; i < dataToScoreTable.length; i++) {
@@ -470,15 +472,16 @@ function closeScoreTable() {
   
 };
 
-generateOriginalText(Text);
 
-refreshButton.addEventListener("click", refreshingButton)
+generateOriginalText(Text);
+saveScoreButton.addEventListener("click", saveScore);
+sendScoreButton.addEventListener("click", sendScore);
+refreshButton.addEventListener("click", refreshingButton);
 
 dataScoreTable()
 
-scoreTableButton.addEventListener("click", openScoreTable)
-
-closeScoreTableButton.addEventListener("click", closeScoreTable)
+scoreTableButton.addEventListener("click", openScoreTable);
+closeScoreTableButton.addEventListener("click", closeScoreTable);
 
 buttonToCloseChartPopUp.addEventListener("click", function(){
   sendScoreBox.style.display = "none";
