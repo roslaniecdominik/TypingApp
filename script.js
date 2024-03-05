@@ -31,14 +31,13 @@ const WPMscore = document.createElement("span");
 
 const unshowingButton = ["f5", "escape", "audiovolumemute", "audiovolumeup", "audiovolumedown", "tab", "capslock","shift", "control", "alt", "altgraph", "meta", "enter", "arrowup", "arrowright", "arrowdown", "arrowleft"];
 
-// const Text = ["The quick brown fox jumps over the lazy dog", 
-// "The cat purrs contentedly as it curls up on the windowsill, basking in the warmth of the afternoon sun",
-// "With a gentle breeze blowing through the trees, the park is the perfect spot for a leisurely picnic",
-// "Jack eagerly opens the envelope to find an invitation to his best friend's birthday party",
-// "The stars twinkle in the night sky, creating a sense of wonder and awe in the hearts of onlookers",
-// "Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride"];
+const Text = ["The quick brown fox jumps over the lazy dog", 
+"The cat purrs contentedly as it curls up on the windowsill, basking in the warmth of the afternoon sun",
+"With a gentle breeze blowing through the trees, the park is the perfect spot for a leisurely picnic",
+"Jack eagerly opens the envelope to find an invitation to his best friend's birthday party",
+"The stars twinkle in the night sky, creating a sense of wonder and awe in the hearts of onlookers",
+"Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride"];
 
-const Text = ["The quick"]
 
 let userText = "";
 let startTime;
@@ -287,7 +286,6 @@ function dataScoreTable() {
       if (playerDataScoreTable) {
         
         if (newRowHTML) {
-          console.log(thead.lastElementChild)
           thead.removeChild(thead.lastElementChild)
         }
         newRowHTML = `
