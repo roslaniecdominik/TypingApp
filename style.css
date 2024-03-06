@@ -335,6 +335,7 @@ body .container-keyboard {
 }
 
 #send-score input {
+  outline: none;
   background-color: inherit;
   width: 250px;
   border: none;
@@ -539,6 +540,10 @@ thead {
     left: -35px;
     top: 3px;
   }
+  .contentText .cursor {
+    height: 28px;
+    width: 2px;
+  }
   #ScoreTable {
     font-size: 20px;
   }
@@ -578,6 +583,10 @@ thead {
     width: 20px;
     left: -25px;
     top: 1px;
+  }
+  .contentText .cursor {
+    height: 18px;
+    width: 1px;
   }
   #ScoreTable {
     font-size: 12px;

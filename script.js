@@ -31,13 +31,13 @@ const WPMscore = document.createElement("span");
 
 const unshowingButton = ["f5", "escape", "audiovolumemute", "audiovolumeup", "audiovolumedown", "tab", "capslock","shift", "control", "alt", "altgraph", "meta", "enter", "arrowup", "arrowright", "arrowdown", "arrowleft"];
 
-const Text = ["The quick brown fox jumps over the lazy dog", 
-"The cat purrs contentedly as it curls up on the windowsill, basking in the warmth of the afternoon sun",
-"With a gentle breeze blowing through the trees, the park is the perfect spot for a leisurely picnic",
-"Jack eagerly opens the envelope to find an invitation to his best friend's birthday party",
-"The stars twinkle in the night sky, creating a sense of wonder and awe in the hearts of onlookers",
-"Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride"];
-
+// const Text = ["The quick brown fox jumps over the lazy dog", 
+// "The cat purrs contentedly as it curls up on the windowsill, basking in the warmth of the afternoon sun",
+// "With a gentle breeze blowing through the trees, the park is the perfect spot for a leisurely picnic",
+// "Jack eagerly opens the envelope to find an invitation to his best friend's birthday party",
+// "The stars twinkle in the night sky, creating a sense of wonder and awe in the hearts of onlookers",
+// "Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride"];
+const Text = ["The quick"]
 
 let userText = "";
 let startTime;
@@ -205,12 +205,17 @@ function chart (timeToFunc, WPMtoFunc) {
   });
 };
 
-function saveScore() {
+function saveScore(key) {
   if (!sendScoreBox.style.display || sendScoreBox.style.display === "none") {
     sendScoreBox.style.display = "flex";
     setTimeout(() => {
       sendScoreBox.style.top = "calc(50% + 200px)"
     }, 10)
+    // console.log(key)
+    // if (event.key === "enter") {
+    //   sendScoreButton.addEventListener("click", sendScore);
+    // }
+    
   } else {
     sendScoreBox.style.top = "calc(50% + 150px)"
     setTimeout(() => {
@@ -355,7 +360,7 @@ function cursorElement(Xstart, Ystart, Xend, Yend) {
     ],
 
     {
-      duration: 200,
+      duration: 150,
       easing: 'ease-in-out',
       delay: 0,
       fill: "forwards"
@@ -506,4 +511,6 @@ document.addEventListener("keyup", function(event) {
   buttons.forEach(button => {
     button.id = "";
   });
+
+  event.key === "Enter" && sendScore();
 });
