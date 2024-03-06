@@ -209,15 +209,10 @@ function saveScore(key) {
   if (!sendScoreBox.style.display || sendScoreBox.style.display === "none") {
     sendScoreBox.style.display = "flex";
     setTimeout(() => {
-      sendScoreBox.style.top = "calc(50% + 200px)"
+      sendScoreBox.style.top = "calc(50% + " + resultWindow.offsetHeight/2 + "px)"
     }, 10)
-    // console.log(key)
-    // if (event.key === "enter") {
-    //   sendScoreButton.addEventListener("click", sendScore);
-    // }
-    
   } else {
-    sendScoreBox.style.top = "calc(50% + 150px)"
+    sendScoreBox.style.top = "calc(50% + " + resultWindow.offsetHeight/4 + "px)"
     setTimeout(() => {
       sendScoreBox.style.display = "none"
     }, 150)
@@ -234,7 +229,7 @@ function sendScore() {
     playerDataScoreTable = [nickNameInput.value, sourceText.length, titleTime.innerText, titleErrors.innerText, titleWPM.innerText];
     dataScoreTable();
     
-    sendScoreBox.style.top = "calc(50% + 150px)"
+    sendScoreBox.style.top = "calc(50% + " + resultWindow.offsetHeight/4 + "px)"
     setTimeout(() => {
       sendScoreBox.style.display = "none";
       sendInfo.style.display = "flex";
@@ -242,11 +237,11 @@ function sendScore() {
     }, 200)
   
     setTimeout(() => {
-      sendInfo.style.top = "calc(50% + 200px)"
+      sendInfo.style.top = "calc(50% + " + resultWindow.offsetHeight/2 + "px)"
     }, 500)
   
     setTimeout(() => {
-      sendInfo.style.top = "calc(50% + 150px)"
+      sendInfo.style.top = "calc(50% + " + resultWindow.offsetHeight/4 + "px)"
       setTimeout(() => {
         sendInfo.style.display = "none";
       }, 200)

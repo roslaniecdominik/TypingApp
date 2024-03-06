@@ -196,7 +196,7 @@ body .container-keyboard {
 
 #result-window {
   height: 400px;
-  max-width: 1000px;
+  width: 70%;
   background-color: rgb(82, 32, 32);
   display: none;
   align-content: center;
@@ -209,44 +209,40 @@ body .container-keyboard {
   z-index: 2;
 }
 
-
 .score {
   margin-top: 30px;
-  height: 300px;
-  min-width: 275px;
+  height: 75%;
+  width: 30%;
   font-weight: bold;
-  padding: 0 50px 0 50px;
+  padding: 0 5% 0 5%;
 }
 
-.title {
+.score span {
   color: rgb(190, 190, 190);
   font-size: 20px;
 }
 
-#title-WPM {
+.score p {
   margin-left: 15px;
   font-size: 55px;
   margin-bottom: 20px;
 }
-
 #title-Time {
-  margin-left: 15px;
-  font-size: 55px;
-  margin-bottom: 20px;
+  white-space: nowrap
 }
 
 #title-errors {
-  margin-left: 15px;
-  font-size: 55px;
+  margin-bottom: 0;
 }
 
 .canvas {
   margin-top: 30px;
-  min-width: 700px;
+  width: 70%;
   padding-right: 30px;
-  height: 300px;
+  height: 75%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 #myChart {
@@ -467,17 +463,17 @@ thead {
 
 ::-webkit-scrollbar {
   width: 6px;
-
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
   background-color: transparent;
-  border-radius: 8px;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: rgb(255, 255, 255);
-  border-radius: 8px;
+  border-radius: 3px;
 }
 
 @keyframes openScoreTableAnimation {
@@ -553,6 +549,27 @@ thead {
   table, .titleColor {
     font-size: 16px;
   }
+  #result-window {
+    height: 350px;
+  }
+  .score span {
+    color: rgb(190, 190, 190);
+    font-size: 18px;
+  }
+  .score p {
+    margin-left: 15px;
+    font-size: 44px;
+    margin-bottom: 20px;
+  }
+  #send-score, #send-info {
+    top: calc(50% + 87.5px);
+    left: calc(50% - 100px);
+    width: 200px;
+  }
+  #send-score input {
+    width: 150px;
+    font-size: 16px;
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -596,5 +613,34 @@ thead {
   }
   table, .titleColor {
     font-size: 12px;
+  }
+  #result-window {
+    height: 350px;
+  }
+  .score{
+    display: flex;
+    width: 95%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+  }
+  .score span {
+    color: rgb(190, 190, 190);
+    font-size: 12px;
+    margin: 0;
+  }
+  .score p {
+    margin: 0 10px;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  .canvas {
+    padding: 0;
+    margin: 0;
+    height: 40%;
+    width: 90%;
+  }
+  #save-score {
+    margin-top: 30px;
   }
 }
