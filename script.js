@@ -19,7 +19,6 @@ const sendScoreBox = document.getElementById("send-score");
 const sendScoreButton = document.getElementById("send-button");
 const sendInfo = document.getElementById("send-info");
 
-
 const buttons = keyboard.querySelectorAll("button");
 const space = keyboard.querySelector(".Space");
 const CapsActive = keyboard.querySelector(".CapsLock-Active");
@@ -31,13 +30,12 @@ const WPMscore = document.createElement("span");
 
 const unshowingButton = ["f5", "escape", "audiovolumemute", "audiovolumeup", "audiovolumedown", "tab", "capslock","shift", "control", "alt", "altgraph", "meta", "enter", "arrowup", "arrowright", "arrowdown", "arrowleft"];
 
-// const Text = ["The quick brown fox jumps over the lazy dog", 
-// "The cat purrs contentedly as it curls up on the windowsill, basking in the warmth of the afternoon sun",
-// "With a gentle breeze blowing through the trees, the park is the perfect spot for a leisurely picnic",
-// "Jack eagerly opens the envelope to find an invitation to his best friend's birthday party",
-// "The stars twinkle in the night sky, creating a sense of wonder and awe in the hearts of onlookers",
-// "Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride"];
-const Text = ["The quick"]
+const Text = ["The quick brown fox jumps over the lazy dog", 
+"The cat purrs contentedly as it curls up on the windowsill, basking in the warmth of the afternoon sun",
+"With a gentle breeze blowing through the trees, the park is the perfect spot for a leisurely picnic",
+"Jack eagerly opens the envelope to find an invitation to his best friend's birthday party",
+"The stars twinkle in the night sky, creating a sense of wonder and awe in the hearts of onlookers",
+"Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride"];
 
 let userText = "";
 let startTime;
@@ -46,12 +44,12 @@ let timeDiff;
 let allWPM = [];
 let userWordCount;
 let Xconstant;
-let Yconstant
-let Xstart = 0
-let Ystart = 0
+let Yconstant;
+let Xstart = 0;
+let Ystart = 0;
 let Xend;
 let Yend;
-let errorsCount = 0
+let errorsCount = 0;
 let myChart;
 let playerDataScoreTable;
 let newRowHTML;
@@ -96,6 +94,21 @@ function generateOriginalText(Text) {
   Yend = 0;
   allWPM = [];
   cursorElement(Xstart, Ystart, Xend, Yend)
+
+
+  const mobileTyping = document.getElementById("mobileTyping");
+
+  setTimeout(() => {
+    mobileTyping.style.height = contentText.offsetHeight + "px"
+    mobileTyping.style.width = contentText.offsetWidth + "px"
+    mobileTyping.style.left = contentText.offsetLeft  + "px"
+    mobileTyping.style.top = contentText.offsetTop  + "px"
+    mobileTyping.addEventListener("input", function() {
+        this.innerHTML = ""
+      });
+  }, 600)
+  
+  
 };
 
 function openChartPopUp() {
@@ -106,12 +119,14 @@ function openChartPopUp() {
 };
 
 function chart (timeToFunc, WPMtoFunc) {
-  if (myChart) {
-    myChart.destroy();
-  }
 
-  let timee = timeToFunc
-  let WPM = WPMtoFunc
+  let size;
+  let bold;
+  resultWindow.offsetWidth < 600 ? (size = 10, bold = 1) : (size = 18, bold = 3);
+  myChart && myChart.destroy();
+
+  let timee = timeToFunc;
+  let WPM = WPMtoFunc;
   WPM = WPM.filter(element => element !== 0);
   var timeLabel = [1]
 
@@ -160,7 +175,9 @@ function chart (timeToFunc, WPMtoFunc) {
         backgroundColor: "white",
         lineTension: 0.5,
         borderRadius: 10,
-        color: "green"
+        borderWidth: bold,
+        pointRadius: bold,
+        color: "green",
     }]
   };
   
@@ -174,13 +191,13 @@ function chart (timeToFunc, WPMtoFunc) {
                 text: "Word per minute",
                 color: "rgb(190, 190, 190)",
                 font: {
-                  size: 18
+                  size: size
                 }
             },
             ticks: {
               color: "white",
               font: {
-                size: 20
+                size: size
               },
               stepSize: 25,
             }
@@ -190,7 +207,7 @@ function chart (timeToFunc, WPMtoFunc) {
         ticks: { 
           color: "white",
           font: {
-            size: 18
+            size: size
           },
         }, 
        }
@@ -285,9 +302,8 @@ function dataScoreTable() {
 
       if (playerDataScoreTable) {
         
-        if (newRowHTML) {
-          thead.removeChild(thead.lastElementChild)
-        }
+        newRowHTML && thead.removeChild(thead.lastElementChild)
+
         newRowHTML = `
         <tr>
             <th>`+0+`</th>
@@ -336,16 +352,13 @@ function bigLetter(event, key) {
   const letterToAdd = event.getModifierState("CapsLock") ? key.toUpperCase()
   : event.getModifierState("Shift") ? key.toUpperCase()
   : key;
-  if (key != "backspace") {
-    userText += letterToAdd;
-  }
+  key != "backspace" && (userText += letterToAdd);
 };
 
 function cursorElement(Xstart, Ystart, Xend, Yend) {
-  if (userText === "") {
-    Xstart = 0
-    Ystart = 0
-  }
+  
+  userText === "" && (Xstart = 0, Ystart = 0);
+  
   const cursor = document.querySelector('.cursor')
   
   cursor.animate(
@@ -368,7 +381,9 @@ function typingGame(originalChars, key) {
   index = userText.length - 1;
 
   if (sourceText[index] === userText[index] && key != "backspace") {
-    if (index>0) {originalChars[index-1].style.borderRight = "0";}
+
+    index > 0 && (originalChars[index-1].style.borderRight = "0");
+
     originalChars[0].style.borderLeft = "0";
     Xstart = Xend
     Ystart = Yend
@@ -380,6 +395,7 @@ function typingGame(originalChars, key) {
   } else if (key === "backspace") {
     userText = userText.slice(0, -1)
     originalChars[index].style.color = "rgb(160, 160, 160)"
+    originalChars[index].style.borderBottom = "none"
     index--;
     Xstart = Xend
     Ystart = Yend
@@ -401,6 +417,8 @@ function typingGame(originalChars, key) {
     Yend = originalChars[index].getBoundingClientRect().top - Yconstant
     cursorElement(Xstart, Ystart, Xend, Yend)
     originalChars[index].style.color = "red";
+    
+    originalChars[index].innerHTML === " " && (originalChars[index].style.borderBottom = "4px red solid");  
     errorsCount++;
   }
 };
@@ -418,11 +436,7 @@ function WPMandWordCount() {
     playerWord.innerText = userWordCount + "/";
     WPM.appendChild(WPMscore);
 
-    if (Number.isInteger(WPMres)) {
-      WPMscore.innerText = WPMres;
-      allWPM.push(WPMres)
-    }
-
+    Number.isInteger(WPMres) && (WPMscore.innerText = WPMres, allWPM.push(WPMres))
 
     if (userText === sourceText) {
       userWordCount++;
