@@ -38,6 +38,7 @@ const Text = ["The quick brown fox jumps over the lazy dog",
 "Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride"];
 
 let userText = "";
+let canRefresh = true; 
 let startTime;
 let endTime;
 let timeDiff;
@@ -109,6 +110,13 @@ function generateOriginalText(Text) {
   }, 600)
   
   
+};
+
+function refreshingButton() {
+  contentText.querySelectorAll("span").forEach(element => {
+    element.remove();
+  });
+  generateOriginalText(Text)
 };
 
 function openChartPopUp() {
@@ -383,7 +391,7 @@ function typingGame(originalChars, key) {
   if (sourceText[index] === userText[index] && key != "backspace") {
 
     index > 0 && (originalChars[index-1].style.borderRight = "0");
-
+    console.log(originalChars[index].style.top)
     originalChars[0].style.borderLeft = "0";
     Xstart = Xend
     Ystart = Yend
@@ -454,13 +462,6 @@ function WPMandWordCount() {
   }
 };
 
-function refreshingButton() {
-  contentText.querySelectorAll("span").forEach(element => {
-    element.remove();
-  });
-  generateOriginalText(Text)
-};
-
 function openScoreTable() {
   overlay.style.display = "block";
   overlay.classList.add("blur");
@@ -486,12 +487,20 @@ function closeScoreTable() {
 
 
 generateOriginalText(Text);
+refreshButton.addEventListener("click", function(){
+  if (canRefresh) {
+    canRefresh = false;
+    refreshingButton();
+    
+    setTimeout(() => {
+       canRefresh = true;
+    }, 9*sourceText.length);
+  };
+})
 saveScoreButton.addEventListener("click", saveScore);
 sendScoreButton.addEventListener("click", sendScore);
-refreshButton.addEventListener("click", refreshingButton);
 
 dataScoreTable()
-
 scoreTableButton.addEventListener("click", openScoreTable);
 closeScoreTableButton.addEventListener("click", closeScoreTable);
 
