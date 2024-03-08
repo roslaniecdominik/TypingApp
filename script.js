@@ -72,12 +72,6 @@ function generateOriginalText(Text) {
     }
   }, 8);
 
-  setTimeout(() => {
-    //starting cursor coordinates
-    Xconstant = contentText.querySelector("span").getBoundingClientRect().left
-    Yconstant = contentText.querySelector("span").getBoundingClientRect().top
-}, 10); //
-
   playerWord.innerHTML = ""
   userWordCount = 0;
   const wordCount = sourceText.split(/\s+/).length;
@@ -98,7 +92,6 @@ function generateOriginalText(Text) {
 
 
   const mobileTyping = document.getElementById("mobileTyping");
-
   setTimeout(() => {
     mobileTyping.style.height = contentText.offsetHeight + "px"
     mobileTyping.style.width = contentText.offsetWidth + "px"
@@ -108,8 +101,6 @@ function generateOriginalText(Text) {
         this.innerHTML = ""
       });
   }, 600)
-  
-  
 };
 
 function refreshingButton() {
@@ -363,70 +354,75 @@ function bigLetter(event, key) {
   key != "backspace" && (userText += letterToAdd);
 };
 
-function cursorElement(Xstart, Ystart, Xend, Yend) {
-  
+function cursorElement(Xstart, Ystart, Xend, Yend, key) {
   userText === "" && (Xstart = 0, Ystart = 0);
-  
   const cursor = document.querySelector('.cursor')
-  
-  cursor.animate(
-    [
-      { transform: "translate("+Xstart+"px, "+Ystart+"px)"},
-      { transform: "translate("+Xend+"px, "+Yend+"px)" }
-    ],
 
-    {
-      duration: 150,
-      easing: 'ease-in-out',
-      delay: 0,
-      fill: "forwards"
-    }
-  );
+  if ((Xstart.toFixed(1) === Xend.toFixed(1) & Xstart > 0 & key != "backspace")||((Xend - Xstart) > contentText.offsetWidth*0.8)) {
+    Xend = 0
+    Yend += contentText.querySelector("span").offsetHeight
+  }
 
+  requestAnimationFrame(function(){
+    cursor.style.left = Xend + "px";
+    cursor.style.top = Yend + "px";
+  })
 };
 
 function typingGame(originalChars, key) {
   index = userText.length - 1;
 
+  Xconstant = contentText.getBoundingClientRect().left
+  Yconstant = contentText.getBoundingClientRect().top
+
+  const spaceError = document.querySelector(".spaceError");
+
   if (sourceText[index] === userText[index] && key != "backspace") {
 
-    index > 0 && (originalChars[index-1].style.borderRight = "0");
-    console.log(originalChars[index].style.top)
-    originalChars[0].style.borderLeft = "0";
     Xstart = Xend
     Ystart = Yend
     Xend = originalChars[index].getBoundingClientRect().right - Xconstant
     Yend = originalChars[index].getBoundingClientRect().top - Yconstant
-    cursorElement(Xstart, Ystart, Xend, Yend)
+
+    cursorElement(Xstart, Ystart, Xend, Yend, key)
     originalChars[index].style.color = "white";
 
   } else if (key === "backspace") {
+
     userText = userText.slice(0, -1)
+
     originalChars[index].style.color = "rgb(160, 160, 160)"
     originalChars[index].style.borderBottom = "none"
+    
     index--;
     Xstart = Xend
     Ystart = Yend
 
-    if (index >= 0) {
-      Xend = originalChars[index].getBoundingClientRect().right - Xconstant
-      Yend = originalChars[index].getBoundingClientRect().top - Yconstant
-    } else {
-      Xend = 0
-      Yend = 0
-    }
+    Xend = index >= 0 ? originalChars[index].getBoundingClientRect().right - Xconstant : 0;
+    Yend = index >= 0 ? originalChars[index].getBoundingClientRect().top - Yconstant : 0;
     
-    cursorElement(Xstart, Ystart, Xend, Yend)
+    originalChars[index+1].offsetWidth === 0 && (spaceError.style.display = "none");
+    
+    cursorElement(Xstart, Ystart, Xend, Yend, key)
 
   } else if (sourceText[index] != userText[index] && key != "backspace") {
     Xstart = Xend
     Ystart = Yend
     Xend = originalChars[index].getBoundingClientRect().right - Xconstant
     Yend = originalChars[index].getBoundingClientRect().top - Yconstant
-    cursorElement(Xstart, Ystart, Xend, Yend)
+    cursorElement(Xstart, Ystart, Xend, Yend, key)
+
     originalChars[index].style.color = "red";
-    
-    originalChars[index].innerHTML === " " && (originalChars[index].style.borderBottom = "4px red solid");  
+    if (originalChars[index].innerHTML === " ") {
+      
+      if (originalChars[index].offsetWidth === 0) {
+        spaceError.style.top = Yend + originalChars[index].offsetHeight-1 + "px"
+        spaceError.style.left = Xend - originalChars[index].offsetWidth-1 + "px"
+        spaceError.style.display = "block"
+      }
+
+      originalChars[index].style.borderBottom = "3px red solid"
+    }
     errorsCount++;
   }
 };

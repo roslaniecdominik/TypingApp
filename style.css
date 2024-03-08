@@ -68,12 +68,22 @@ body .container {
   caret-color: transparent;
 }
 
+.spaceError {
+  display: none;
+  position: absolute;
+  width: 8px;
+  height: 2.5px;
+  background-color: red;
+  border: none;
+}
+
 .contentText .cursor {
   height: 30px;
   width: 3px;
   background-color: rgb(255, 255, 255);
   position: absolute;
   top: 2px;
+  transition: all 0.2s ease;
   animation: pulse 1s infinite;
 }
 
@@ -610,7 +620,7 @@ thead {
     top: 1px;
   }
   .contentText .cursor {
-    height: 18px;
+    height: 20px;
     width: 1px;
   }
   #ScoreTable {
