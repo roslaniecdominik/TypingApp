@@ -29,13 +29,21 @@ const playerWord = document.createElement("p");
 const WPMscore = document.createElement("span");
 
 const unshowingButton = ["f5", "escape", "audiovolumemute", "audiovolumeup", "audiovolumedown", "tab", "capslock","shift", "control", "alt", "altgraph", "meta", "enter", "arrowup", "arrowright", "arrowdown", "arrowleft"];
-
-const Text = ["The quick brown fox jumps over the lazy dog", 
-"The cat purrs contentedly as it curls up on the windowsill, basking in the warmth of the afternoon sun",
-"With a gentle breeze blowing through the trees, the park is the perfect spot for a leisurely picnic",
-"Jack eagerly opens the envelope to find an invitation to his best friend's birthday party",
-"The stars twinkle in the night sky, creating a sense of wonder and awe in the hearts of onlookers",
-"Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride"];
+const Text = ["The quick brown"]
+// const Text = ["The quick brown fox jumps over the lazy dog", 
+// "The cat purrs contentedly as it curls up on the windowsill, basking in the warmth of the afternoon sun",
+// "With a gentle breeze blowing through the trees, the park is the perfect spot for a leisurely picnic",
+// "The stars twinkle in the night sky, creating a sense of wonder and awe in the hearts of onlookers",
+// "Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride",
+// "The sun shines brightly in the clear blue sky, warming the earth below",
+// "Birds chirp merrily as they flit from tree to tree in search of food",
+// "Children laugh and play in the park, their joy infectious to all around them",
+// "The scent of freshly baked bread wafts from the neighborhood bakery, tempting passersby",
+// "A gentle breeze rustles through the leaves, providing relief from the summer heat",
+// "A rainbow arcs across the sky after a brief, refreshing rain shower",
+// "The old oak tree stands tall and proud, its branches reaching towards the heavens",
+// "A stray cat prowls the alleyways, searching for scraps to satisfy its hunger",
+// "The stars twinkle in the night sky, a reminder of the vastness and beauty of the universe"];
 
 let userText = "";
 let canRefresh = true; 
@@ -242,7 +250,7 @@ function sendScore() {
       sendScoreBox.classList.remove("shake");
     }, 500);
   } else {
-    playerDataScoreTable = [nickNameInput.value, sourceText.length, titleTime.innerText, titleErrors.innerText, titleWPM.innerText];
+    playerDataScoreTable = [nickNameInput.value, userWordCount, titleTime.innerText, titleErrors.innerText, titleWPM.innerText];
     dataScoreTable();
     
     sendScoreBox.style.top = "calc(50% + " + resultWindow.offsetHeight/4 + "px)"
@@ -250,7 +258,7 @@ function sendScore() {
       sendScoreBox.style.display = "none";
       sendInfo.style.display = "flex";
       nickNameInput.value = ""
-    }, 200)
+    }, 150)
   
     setTimeout(() => {
       sendInfo.style.top = "calc(50% + " + resultWindow.offsetHeight/2 + "px)"
@@ -483,6 +491,7 @@ function closeScoreTable() {
 
 
 generateOriginalText(Text);
+
 refreshButton.addEventListener("click", function(){
   if (canRefresh) {
     canRefresh = false;
@@ -493,6 +502,7 @@ refreshButton.addEventListener("click", function(){
     }, 9*sourceText.length);
   };
 })
+
 saveScoreButton.addEventListener("click", saveScore);
 sendScoreButton.addEventListener("click", sendScore);
 
@@ -507,6 +517,12 @@ buttonToCloseChartPopUp.addEventListener("click", function(){
   sendInfo.style.top = "510px";
   closeChartPopUp();
   refreshingButton();
+})
+
+overlay.addEventListener("click", function() {
+  closeChartPopUp();
+  refreshingButton();
+  closeScoreTable();
 })
 
 document.addEventListener("keydown", function(event) {
