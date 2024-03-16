@@ -13,6 +13,7 @@ const scoreTableWindow = document.getElementById("ScoreTable-window");
 const closeScoreTableButton = document.getElementById("close-ScoreTable");
 const scoreTableButton = document.getElementById("ScoreTable");
 const nickNameInput = document.getElementById("nickNameInput");
+const mobileTyping = document.getElementById("mobileTyping")
 
 const saveScoreButton = document.getElementById("save-score");
 const sendScoreBox = document.getElementById("send-score");
@@ -28,22 +29,23 @@ const allWord = document.createElement("div");
 const playerWord = document.createElement("p");
 const WPMscore = document.createElement("span");
 
-const unshowingButton = ["f5", "escape", "audiovolumemute", "audiovolumeup", "audiovolumedown", "tab", "capslock","shift", "control", "alt", "altgraph", "meta", "enter", "arrowup", "arrowright", "arrowdown", "arrowleft"];
-const Text = ["The quick brown"]
-// const Text = ["The quick brown fox jumps over the lazy dog", 
-// "The cat purrs contentedly as it curls up on the windowsill, basking in the warmth of the afternoon sun",
-// "With a gentle breeze blowing through the trees, the park is the perfect spot for a leisurely picnic",
-// "The stars twinkle in the night sky, creating a sense of wonder and awe in the hearts of onlookers",
-// "Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride",
-// "The sun shines brightly in the clear blue sky, warming the earth below",
-// "Birds chirp merrily as they flit from tree to tree in search of food",
-// "Children laugh and play in the park, their joy infectious to all around them",
-// "The scent of freshly baked bread wafts from the neighborhood bakery, tempting passersby",
-// "A gentle breeze rustles through the leaves, providing relief from the summer heat",
-// "A rainbow arcs across the sky after a brief, refreshing rain shower",
-// "The old oak tree stands tall and proud, its branches reaching towards the heavens",
-// "A stray cat prowls the alleyways, searching for scraps to satisfy its hunger",
-// "The stars twinkle in the night sky, a reminder of the vastness and beauty of the universe"];
+const unshowingButton = ["f5", "escape", "audiovolumemute", "audiovolumeup", "audiovolumedown", "tab", "capslock",
+"shift", "control", "alt", "altgraph", "meta", "enter", "arrowup", "arrowright", "arrowdown", "arrowleft"];
+
+const Text = ["The quick brown fox jumps over the lazy dog", 
+"The cat purrs contentedly as it curls up on the windowsill, basking in the warmth of the afternoon sun",
+"With a gentle breeze blowing through the trees, the park is the perfect spot for a leisurely picnic",
+"The stars twinkle in the night sky, creating a sense of wonder and awe in the hearts of onlookers",
+"Emily carefully tends to her garden, lovingly watering each plant and watching them grow with pride",
+"The sun shines brightly in the clear blue sky, warming the earth below",
+"Birds chirp merrily as they flit from tree to tree in search of food",
+"Children laugh and play in the park, their joy infectious to all around them",
+"The scent of freshly baked bread wafts from the neighborhood bakery, tempting passersby",
+"A gentle breeze rustles through the leaves, providing relief from the summer heat",
+"A rainbow arcs across the sky after a brief, refreshing rain shower",
+"The old oak tree stands tall and proud, its branches reaching towards the heavens",
+"A stray cat prowls the alleyways, searching for scraps to satisfy its hunger",
+"The stars twinkle in the night sky, a reminder of the vastness and beauty of the universe"];
 
 let userText = "";
 let canRefresh = true; 
@@ -80,7 +82,7 @@ function generateOriginalText(Text) {
     }
   }, 8);
 
-  playerWord.innerHTML = ""
+  playerWord.innerHTML = "";
   userWordCount = 0;
   const wordCount = sourceText.split(/\s+/).length;
   wordScore.appendChild(allWord);
@@ -88,27 +90,25 @@ function generateOriginalText(Text) {
   allWord.className = "allWord"
   allWord.innerText = wordCount;
 
-  WPMscore.innerHTML = ""
+  WPMscore.innerHTML = "";
   
-  userText = ""
+  userText = "";
   errorsCount = 0;
   timeDiff = 0;
   Xend = 0;
   Yend = 0;
   allWPM = [];
-  cursorElement(Xstart, Ystart, Xend, Yend)
+  cursorElement(Xstart, Ystart, Xend, Yend);
 
-
-  const mobileTyping = document.getElementById("mobileTyping");
   setTimeout(() => {
-    mobileTyping.style.height = contentText.offsetHeight + "px"
-    mobileTyping.style.width = contentText.offsetWidth + "px"
-    mobileTyping.style.left = contentText.offsetLeft  + "px"
-    mobileTyping.style.top = contentText.offsetTop  + "px"
+    mobileTyping.style.height = contentText.offsetHeight + "px";
+    mobileTyping.style.width = contentText.offsetWidth + "px";
+    mobileTyping.style.left = contentText.offsetLeft  + "px";
+    mobileTyping.style.top = contentText.offsetTop  + "px";
     mobileTyping.addEventListener("input", function() {
         this.innerHTML = ""
       });
-  }, 600)
+  }, 600);
 };
 
 function refreshingButton() {
@@ -119,6 +119,7 @@ function refreshingButton() {
 };
 
 function openChartPopUp() {
+  mobileTyping.blur()
   overlay.style.display = "block";
   overlay.classList.add("blur")
   resultWindow.style.display = "flex";
@@ -135,42 +136,42 @@ function chart (timeToFunc, WPMtoFunc) {
   let timee = timeToFunc;
   let WPM = WPMtoFunc;
   WPM = WPM.filter(element => element !== 0);
-  var timeLabel = [1]
+  var timeLabel = [1];
 
   for (let i = 2; timeLabel[timeLabel.length-1] < (timee-1); i++) {
-    timeLabel.push(i)
+    timeLabel.push(i);
   }
   timeLabel.push(timee)
 
   let step;
   if ((WPM.length/(timeLabel.length-1)) < 1) {
-    step = 1
+    step = 1;
   } else {
-    step = parseInt(WPM.length/(timeLabel.length-1))
+    step = parseInt(WPM.length/(timeLabel.length-1));
   }
 
   let WPMdata;
 
   if (timee>WPM.length) {
-    WPMdata = WPM
+    WPMdata = WPM;
     const result = [];
     for (let i = 0; i < WPM.length; i++) {
         result.push(WPM[i], WPM[i]);
     }
-    WPMdata = result
+    WPMdata = result;
 
     while (timeLabel.length > WPMdata.length) {
-      WPMdata.push(WPMdata[WPMdata.length-1])
+      WPMdata.push(WPMdata[WPMdata.length-1]);
     }
     while (timeLabel.length < WPMdata.length) {
-      WPMdata.splice(WPMdata.length/2, 1)
+      WPMdata.splice(WPMdata.length/2, 1);
     }
   } else {
-    WPMdata = [WPM[0]]
+    WPMdata = [WPM[0]];
     for (let i = 1; WPMdata.length < (timeLabel.length-1); i += step) {
-      WPMdata.push(WPM[i])
+      WPMdata.push(WPM[i]);
     }
-    WPMdata.push(WPM[WPM.length-1])
+    WPMdata.push(WPM[WPM.length-1]);
   }
 
   let data = {

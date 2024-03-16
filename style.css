@@ -58,6 +58,8 @@ body .container {
 }
 
 #mobileTyping {
+  border: none;
+  color: transparent;
   background-color: transparent;
   position: absolute;
   -webkit-user-select: none;
