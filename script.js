@@ -346,12 +346,12 @@ function dataScoreTable() {
 function keyboardActive(event, key) {
   buttons.forEach(button => {
     if (key === " ") {
-      space.id = "active";
+      space.classList.add("active");
     } else if (key === "capslock") {
-      CapsLock.id = "active";  
+      CapsLock.classList.add("active");  
       event.getModifierState("CapsLock") ? CapsActive.id = "Caps-Active" : CapsActive.id = " ";
     } else if (button.classList[0] === key){
-      button.id = "active";
+      button.classList.add("active");
     };
   });
 };
@@ -540,7 +540,7 @@ document.addEventListener("keydown", function(event) {
 
 document.addEventListener("keyup", function(event) {
   buttons.forEach(button => {
-    button.id = "";
+    button.classList.remove("active");
   });
 
   event.key === "Enter" && sendScore();

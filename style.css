@@ -127,12 +127,6 @@ body .container-keyboard {
   grid-template-rows: repeat(10, 15px);
   grid-gap: 5px;
 }
-
-.keyboard #active {
-  background-color: white;
-  color: rgb(27, 25, 25);
-  font-weight: bold;
-}
  
 .keyboard button {
   border: 2px solid white;
@@ -140,9 +134,15 @@ body .container-keyboard {
   border-radius: 5px;
   grid-column: span 2;
   grid-row: span 2;
-  transition: all 0.5 ease;
+  transition: all 0.2s ease-in-out;
   background: transparent;
   font-family: "Roboto";
+}
+
+button.active {
+  background-color: white;
+  color: rgb(27, 25, 25);
+  font-weight: bold;
 }
 
 .keyboard .backspace {
