@@ -4,7 +4,7 @@ https://roslaniecdominik.github.io/TypingApp/
 
 ## The website is fully responsive and works on computers, tablets and mobile phones
 
-### Functions:
+## Functions:
 - live WPM and word count
 - smooth cursor
 - active keyboard animation on display
