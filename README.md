@@ -1,6 +1,6 @@
 https://roslaniecdominik.github.io/TypingApp/
 
-# App to speed typing training, created in html, css, js.
+# App to training speed typing, created in html, css, js.
 
 ## The website is fully responsive and works on computers, tablets and mobile phones
 
